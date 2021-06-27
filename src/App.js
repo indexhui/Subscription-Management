@@ -89,6 +89,10 @@ function App() {
     });
   };
 
+  const handleDelete = id => () => {
+    setSubs(preSubs => preSubs.filter(todo => todo.id !== id));
+  };
+
   const numOfRemaing = subs.length;
 
   function SumDataforEach(arr) {
@@ -118,7 +122,7 @@ function App() {
             pl="24px"
           >
             <Header sum={SumDataforEach(subs)} numOfRemaing={numOfRemaing} />
-            <Subscription subs={subs} />
+            <Subscription subs={subs} handleDelete={handleDelete} />
           </Flex>
 
           <AddSubscription

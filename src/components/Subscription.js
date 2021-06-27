@@ -2,7 +2,7 @@ import { Box, Flex, Checkbox, Icon } from '@chakra-ui/react';
 
 import { FiTrash2, FiEdit3 } from 'react-icons/fi';
 
-const Subscription = ({ subs }) => {
+const Subscription = ({ subs, handleDelete }) => {
   return (
     <Box>
       {subs.map(sub => (
@@ -60,7 +60,11 @@ const Subscription = ({ subs }) => {
             justify="center"
           >
             <Box py="2px" mt="5px">
-              <Icon as={FiTrash2} _hover={{ color: 'gray.800' }} />
+              <Icon
+                as={FiTrash2}
+                _hover={{ color: 'gray.800' }}
+                onClick={handleDelete(sub.id)}
+              />
             </Box>
             <Box py="2px" mb="5px">
               <Icon as={FiEdit3} _hover={{ color: 'gray.800' }} py="1px" />
