@@ -23,7 +23,7 @@ const AddSubscription = ({ inputValue, handleSubmit, handleChange }) => {
     >
       新增訂閱項目
       <form onSubmit={handleSubmit}>
-        <FormControl id="first-name" isRequired>
+        <FormControl isRequired>
           <FormLabel>服務名稱</FormLabel>
           <Input
             placeholder="服務名稱"
@@ -32,7 +32,7 @@ const AddSubscription = ({ inputValue, handleSubmit, handleChange }) => {
             name="name"
           />
         </FormControl>
-        <FormControl id="first-name" isRequired>
+        <FormControl isRequired>
           <FormLabel>方案</FormLabel>
           <Input
             placeholder="方案"
@@ -41,7 +41,7 @@ const AddSubscription = ({ inputValue, handleSubmit, handleChange }) => {
             value={inputValue.plan}
           />
         </FormControl>
-        <FormControl id="first-name" isRequired>
+        <FormControl isRequired>
           <FormLabel>金額</FormLabel>
           <Input
             placeholder="金額"

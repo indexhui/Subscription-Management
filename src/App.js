@@ -13,6 +13,7 @@ const defaultSubscription = [
     plan: 'family',
     price: '200',
     isPaid: false,
+    isEdit: false,
   },
   {
     id: '02',
@@ -20,6 +21,7 @@ const defaultSubscription = [
     plan: 'personal',
     price: '150',
     isPaid: false,
+    isEdit: false,
   },
   {
     id: '03',
@@ -27,6 +29,7 @@ const defaultSubscription = [
     plan: 'personal',
     price: '120',
     isPaid: true,
+    isEdit: false,
   },
 ];
 
@@ -41,23 +44,10 @@ function App() {
   const handleChange = e => {
     let key = e.target.name;
     let value = e.target.value;
-
-    if (key === 'name') {
-      setInputValue({
-        ...inputValue,
-        name: value,
-      });
-    } else if (key === 'plan') {
-      setInputValue({
-        ...inputValue,
-        plan: value,
-      });
-    } else if (key === 'price') {
-      setInputValue({
-        ...inputValue,
-        price: value,
-      });
-    }
+    setInputValue({
+      ...inputValue,
+      [key]: value,
+    });
   };
   // inputValue = ['name', 'plan', 'price'];
 
@@ -74,11 +64,6 @@ function App() {
         ...preSubs,
         // ...subs,
         inputValue,
-        // {
-        //   name: 'test',
-        //   plane: 'test',
-        //   price: '240',
-        // },
       ];
     });
 
@@ -90,7 +75,29 @@ function App() {
   };
 
   const handleDelete = id => () => {
-    setSubs(preSubs => preSubs.filter(todo => todo.id !== id));
+    setSubs(preSubs => preSubs.filter(sub => sub.id !== id));
+  };
+
+  const updateIsEdit = ({ id, isEdit }) => {
+    setSubs(prevSubs =>
+      prevSubs.map(sub => {
+        if (sub.id !== id) {
+          return sub;
+        }
+        return { ...sub, isEdit };
+      })
+    );
+  };
+
+  const handleSave = ({ id, tempSub }) => {
+    setSubs(prevSubs =>
+      prevSubs.map(sub => {
+        if (sub.id !== id) {
+          return sub;
+        }
+        return { ...sub, ...tempSub, isEdit: false };
+      })
+    );
   };
 
   const numOfRemaing = subs.length;
@@ -122,7 +129,12 @@ function App() {
             pl="24px"
           >
             <Header sum={SumDataforEach(subs)} numOfRemaing={numOfRemaing} />
-            <Subscription subs={subs} handleDelete={handleDelete} />
+            <Subscription
+              subs={subs}
+              handleDelete={handleDelete}
+              updateIsEdit={updateIsEdit}
+              handleSave={handleSave}
+            />
           </Flex>
 
           <AddSubscription
