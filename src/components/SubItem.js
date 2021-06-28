@@ -40,8 +40,6 @@ const SubItem = ({ sub, handleDelete, updateIsEdit, handleSave }) => {
     }
   };
 
-  console.log('tempSub', tempSub);
-
   return (
     <Flex
       bg="white"

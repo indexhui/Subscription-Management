@@ -1,0 +1,36 @@
+{
+  "subscriptions": [
+    {
+      "id": "f469b184-97df-4995-9851-5b65d074ed3c",
+      "name": "Netflix",
+      "plan": "family",
+      "price": "220",
+      "isPaid": false,
+      "isEdit": false
+    },
+    {
+      "id": "69a8fd73-9238-415d-9138-b3a2dbfb94e6",
+      "name": "Notionw",
+      "plan": "personal",
+      "price": "200",
+      "isPaid": false,
+      "isEdit": false,
+      "isDone": false
+    },
+    {
+      "name": "ubereat",
+      "plan": "personal",
+      "price": "120",
+      "isDone": false,
+      "id": "O8TX5ft"
+    },
+    {
+      "name": "Spotify",
+      "plan": "personal",
+      "price": "180",
+      "isPaid": false,
+      "id": "Jn8gtGY",
+      "isDone": false
+    }
+  ]
+}

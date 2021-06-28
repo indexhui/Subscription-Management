@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChakraProvider, Flex } from '@chakra-ui/react';
 
 import theme from './theme/theme.js';
@@ -6,40 +6,62 @@ import Header from './components/Header';
 import Subscription from './components/Subscription';
 import AddSubscription from './components/AddSubscription';
 
-const defaultSubscription = [
-  {
-    id: '01',
-    name: 'Netflix',
-    plan: 'family',
-    price: '200',
-    isPaid: false,
-    isEdit: false,
-  },
-  {
-    id: '02',
-    name: 'Spotify',
-    plan: 'personal',
-    price: '150',
-    isPaid: false,
-    isEdit: false,
-  },
-  {
-    id: '03',
-    name: 'Notion',
-    plan: 'personal',
-    price: '120',
-    isPaid: true,
-    isEdit: false,
-  },
-];
+import {
+  getSubs,
+  createSubs,
+  updateSubs,
+  deleteSubs,
+} from './api/subscriptions';
+
+// const defaultSubscription = [
+//   {
+//     id: '01',
+//     name: 'Netflix',
+//     plan: 'family',
+//     price: '200',
+//     isPaid: false,
+//     isEdit: false,
+//   },
+//   {
+//     id: '02',
+//     name: 'Spotify',
+//     plan: 'personal',
+//     price: '150',
+//     isPaid: false,
+//     isEdit: false,
+//   },
+//   {
+//     id: '03',
+//     name: 'Notion',
+//     plan: 'personal',
+//     price: '120',
+//     isPaid: true,
+//     isEdit: false,
+//   },
+// ];
 
 function App() {
-  const [subs, setSubs] = useState(defaultSubscription);
+  const [subs, setSubs] = useState();
   const [inputValue, setInputValue] = useState({
     name: '',
     plan: '',
     price: '',
   });
+
+  // useEffect(() => {
+  // 每次component render 後被執行
+  //   getSubs().then(data => {
+  //     setSubs(data);
+  //   });
+  // }, []);
+
+  useEffect(() => {
+    const fetchSubs = async () => {
+      const data = await getSubs();
+      setSubs(data);
+    };
+    fetchSubs();
+  }, []);
 
   const handleChange = e => {
     let key = e.target.name;
@@ -49,22 +71,32 @@ function App() {
       [key]: value,
     });
   };
-  // inputValue = ['name', 'plan', 'price'];
 
-  const handleSubmit = e => {
-    // setInputValue(e.target.value);
+  const handleSubmit = async e => {
     e.preventDefault();
-    console.log(inputValue);
     // setSubs({
     //   ...subs,
     //   inputValue,
     // });
+
+    const data = await createSubs({
+      name: inputValue.name,
+      plan: inputValue.plan,
+      price: inputValue.price,
+    });
+
+    console.log(data);
+
+    // setSubs(preSubs => {
+    //   return [
+    //     ...preSubs,
+    //     // ...subs,
+    //     inputValue,
+    //   ];
+    // });
+
     setSubs(preSubs => {
-      return [
-        ...preSubs,
-        // ...subs,
-        inputValue,
-      ];
+      return [...preSubs, data];
     });
 
     setInputValue({
@@ -74,8 +106,17 @@ function App() {
     });
   };
 
-  const handleDelete = id => () => {
-    setSubs(preSubs => preSubs.filter(sub => sub.id !== id));
+  // const handleDelete = id => () => {
+  //   setSubs(preSubs => preSubs.filter(sub => sub.id !== id));
+  // };
+
+  const handleDelete = id => async () => {
+    try {
+      await deleteSubs(id);
+      setSubs(preSubs => preSubs.filter(sub => sub.id !== id));
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const updateIsEdit = ({ id, isEdit }) => {
@@ -89,7 +130,27 @@ function App() {
     );
   };
 
-  const handleSave = ({ id, tempSub }) => {
+  // const handleSave = ({ id, tempSub }) => {
+  //   setSubs(prevSubs =>
+  //     prevSubs.map(sub => {
+  //       if (sub.id !== id) {
+  //         return sub;
+  //       }
+  //       return { ...sub, ...tempSub, isEdit: false };
+  //     })
+  //   );
+  // };
+
+  const handleSave = async payload => {
+    const { id, tempSub } = payload;
+
+    await updateSubs({
+      id,
+      isDone: false,
+      ...tempSub,
+      isEdit: false,
+    });
+
     setSubs(prevSubs =>
       prevSubs.map(sub => {
         if (sub.id !== id) {
@@ -100,7 +161,18 @@ function App() {
     );
   };
 
-  const numOfRemaing = subs.length;
+  // const handleSave = ({ id, tempSub }) => {
+  //   setSubs(prevSubs =>
+  //     prevSubs.map(sub => {
+  //       if (sub.id !== id) {
+  //         return sub;
+  //       }
+  //       return { ...sub, ...tempSub, isEdit: false };
+  //     })
+  //   );
+  // };
+
+  const numOfRemaing = subs?.length;
 
   function SumDataforEach(arr) {
     let sum = 0;
@@ -128,7 +200,10 @@ function App() {
             padding="32px"
             pl="24px"
           >
-            <Header sum={SumDataforEach(subs)} numOfRemaing={numOfRemaing} />
+            <Header
+              sum={subs && SumDataforEach(subs)}
+              numOfRemaing={numOfRemaing}
+            />
             <Subscription
               subs={subs}
               handleDelete={handleDelete}
