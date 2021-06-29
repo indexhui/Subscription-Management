@@ -1,6 +1,84 @@
-import { Box, Flex, Checkbox, Icon, Input } from '@chakra-ui/react';
+import { Box, Flex, Icon, Input, Image } from '@chakra-ui/react';
 import { useState } from 'react';
 import { FiTrash2, FiEdit3 } from 'react-icons/fi';
+import youtube from '../assets/images/youtube.svg';
+import adobe from '../assets/images/adobe.svg';
+import apple from '../assets/images/apple.svg';
+import dropbox from '../assets/images/dropbox.svg';
+import figma from '../assets/images/figma.svg';
+import foodpanda from '../assets/images/foodpanda.svg';
+import google from '../assets/images/google.svg';
+import medium from '../assets/images/medium.svg';
+import netflix from '../assets/images/netflix.svg';
+import notion from '../assets/images/notion.svg';
+import patreon from '../assets/images/patreon.svg';
+import slack from '../assets/images/slack.svg';
+import spotify from '../assets/images/spotify.svg';
+import ubereat from '../assets/images/ubereat.svg';
+import zeplin from '../assets/images/zeplin.svg';
+
+const brandArray = [
+  {
+    brand: 'youtube',
+    src: youtube,
+  },
+  {
+    brand: 'adobe',
+    src: adobe,
+  },
+  {
+    brand: 'apple',
+    src: apple,
+  },
+  {
+    brand: 'dropbox',
+    src: dropbox,
+  },
+  {
+    brand: 'figma',
+    src: figma,
+  },
+  {
+    brand: 'foodpanda',
+    src: foodpanda,
+  },
+  {
+    brand: 'google',
+    src: google,
+  },
+  {
+    brand: 'medium',
+    src: medium,
+  },
+  {
+    brand: 'netflix',
+    src: netflix,
+  },
+  {
+    brand: 'notion',
+    src: notion,
+  },
+  {
+    brand: 'patreon',
+    src: patreon,
+  },
+  {
+    brand: 'slack',
+    src: slack,
+  },
+  {
+    brand: 'spotify',
+    src: spotify,
+  },
+  {
+    brand: 'zeplin',
+    src: zeplin,
+  },
+  {
+    brand: 'ubereat',
+    src: ubereat,
+  },
+];
 
 const SubItem = ({
   sub,
@@ -47,6 +125,19 @@ const SubItem = ({
     }
   };
 
+  function brandMatch(brand) {
+    if (brand) {
+      for (const iterate of brandArray) {
+        const brandName = iterate.brand;
+        const parse = brand.toLowerCase().indexOf(brandName);
+        if (parse > -1) {
+          console.log(iterate.src);
+          return iterate.src;
+        }
+      }
+    }
+  }
+
   return (
     <Flex
       bg="white"
@@ -62,18 +153,37 @@ const SubItem = ({
     >
       <Flex align="center">
         {/* <Checkbox colorScheme="cyan"> */}
-        <Box
+        <Flex
           bg="gray.900"
           color="white"
           w="40px"
           h="40px"
           lineHeight="40px"
           textAlign="center"
-          borderRadius="2px"
+          justify="center"
+          align="center"
+          borderRadius="5px"
           mr="2"
         >
-          {sub.name && sub.name.slice(0, 1).toUpperCase()}
-        </Box>
+          {/* {sub.name && sub.name.slice(0, 1).toUpperCase()}  */}
+          {brandMatch(sub.name) ? (
+            <Image
+              boxSize="28px"
+              src={brandMatch(sub.name)}
+              alt="Segun Adebayo"
+              margin="0 auto"
+            />
+          ) : (
+            sub.name.slice(0, 1).toUpperCase()
+          )}
+
+          {/* <Image
+            boxSize="28px"
+            src={youtube}
+            alt="Segun Adebayo"
+            margin="0 auto"
+          /> */}
+        </Flex>
         {/* </Checkbox> */}
         <Box>
           <Box onDoubleClick={() => updateIsEdit({ id: id, isEdit: true })}>
