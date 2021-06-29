@@ -1,19 +1,34 @@
 {
   "files": {
-    "main.js": "/subscription-management/static/js/main.247d9e31.chunk.js",
-    "main.js.map": "/subscription-management/static/js/main.247d9e31.chunk.js.map",
-    "runtime-main.js": "/subscription-management/static/js/runtime-main.ab0a4840.js",
-    "runtime-main.js.map": "/subscription-management/static/js/runtime-main.ab0a4840.js.map",
-    "static/js/2.c33caf71.chunk.js": "/subscription-management/static/js/2.c33caf71.chunk.js",
-    "static/js/2.c33caf71.chunk.js.map": "/subscription-management/static/js/2.c33caf71.chunk.js.map",
-    "static/js/3.8a5e93e5.chunk.js": "/subscription-management/static/js/3.8a5e93e5.chunk.js",
-    "static/js/3.8a5e93e5.chunk.js.map": "/subscription-management/static/js/3.8a5e93e5.chunk.js.map",
+    "main.js": "/subscription-management/static/js/main.de2918bf.chunk.js",
+    "main.js.map": "/subscription-management/static/js/main.de2918bf.chunk.js.map",
+    "runtime-main.js": "/subscription-management/static/js/runtime-main.1f095739.js",
+    "runtime-main.js.map": "/subscription-management/static/js/runtime-main.1f095739.js.map",
+    "static/js/2.f8e48af5.chunk.js": "/subscription-management/static/js/2.f8e48af5.chunk.js",
+    "static/js/2.f8e48af5.chunk.js.map": "/subscription-management/static/js/2.f8e48af5.chunk.js.map",
+    "static/js/3.ec827ade.chunk.js": "/subscription-management/static/js/3.ec827ade.chunk.js",
+    "static/js/3.ec827ade.chunk.js.map": "/subscription-management/static/js/3.ec827ade.chunk.js.map",
     "index.html": "/subscription-management/index.html",
-    "static/js/2.c33caf71.chunk.js.LICENSE.txt": "/subscription-management/static/js/2.c33caf71.chunk.js.LICENSE.txt"
+    "static/js/2.f8e48af5.chunk.js.LICENSE.txt": "/subscription-management/static/js/2.f8e48af5.chunk.js.LICENSE.txt",
+    "static/media/adobe.e19e964d.svg": "/subscription-management/static/media/adobe.e19e964d.svg",
+    "static/media/apple.157374df.svg": "/subscription-management/static/media/apple.157374df.svg",
+    "static/media/dropbox.9639d859.svg": "/subscription-management/static/media/dropbox.9639d859.svg",
+    "static/media/figma.9840068e.svg": "/subscription-management/static/media/figma.9840068e.svg",
+    "static/media/foodpanda.80e76112.svg": "/subscription-management/static/media/foodpanda.80e76112.svg",
+    "static/media/google.e7540cfa.svg": "/subscription-management/static/media/google.e7540cfa.svg",
+    "static/media/medium.d92b554c.svg": "/subscription-management/static/media/medium.d92b554c.svg",
+    "static/media/netflix.d2e27850.svg": "/subscription-management/static/media/netflix.d2e27850.svg",
+    "static/media/notion.234d7ad9.svg": "/subscription-management/static/media/notion.234d7ad9.svg",
+    "static/media/patreon.8968edbb.svg": "/subscription-management/static/media/patreon.8968edbb.svg",
+    "static/media/slack.7b4508e3.svg": "/subscription-management/static/media/slack.7b4508e3.svg",
+    "static/media/spotify.f4aa6374.svg": "/subscription-management/static/media/spotify.f4aa6374.svg",
+    "static/media/ubereat.4f38b1a5.svg": "/subscription-management/static/media/ubereat.4f38b1a5.svg",
+    "static/media/youtube.f694987f.svg": "/subscription-management/static/media/youtube.f694987f.svg",
+    "static/media/zeplin.e9833f30.svg": "/subscription-management/static/media/zeplin.e9833f30.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.ab0a4840.js",
-    "static/js/2.c33caf71.chunk.js",
-    "static/js/main.247d9e31.chunk.js"
+    "static/js/runtime-main.1f095739.js",
+    "static/js/2.f8e48af5.chunk.js",
+    "static/js/main.de2918bf.chunk.js"
   ]
 }
