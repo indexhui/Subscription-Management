@@ -11,34 +11,7 @@ import {
   createSubs,
   updateSubs,
   deleteSubs,
-} from './api/subscriptions';
-
-// const defaultSubscription = [
-//   {
-//     id: '01',
-//     name: 'Netflix',
-//     plan: 'family',
-//     price: '200',
-//     isPaid: false,
-//     isEdit: false,
-//   },
-//   {
-//     id: '02',
-//     name: 'Spotify',
-//     plan: 'personal',
-//     price: '150',
-//     isPaid: false,
-//     isEdit: false,
-//   },
-//   {
-//     id: '03',
-//     name: 'Notion',
-//     plan: 'personal',
-//     price: '120',
-//     isPaid: true,
-//     isEdit: false,
-//   },
-// ];
+} from './api/airtableSubscriptions';
 
 function App() {
   const [subs, setSubs] = useState();
@@ -48,17 +21,10 @@ function App() {
     price: '',
   });
 
-  // useEffect(() => {
-  // 每次component render 後被執行
-  //   getSubs().then(data => {
-  //     setSubs(data);
-  //   });
-  // }, []);
-
   useEffect(() => {
     const fetchSubs = async () => {
       const data = await getSubs();
-      setSubs(data);
+      setSubs(data.records);
     };
     fetchSubs();
   }, []);
@@ -74,26 +40,12 @@ function App() {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    // setSubs({
-    //   ...subs,
-    //   inputValue,
-    // });
 
     const data = await createSubs({
       name: inputValue.name,
       plan: inputValue.plan,
       price: inputValue.price,
     });
-
-    console.log(data);
-
-    // setSubs(preSubs => {
-    //   return [
-    //     ...preSubs,
-    //     // ...subs,
-    //     inputValue,
-    //   ];
-    // });
 
     setSubs(preSubs => {
       return [...preSubs, data];
@@ -106,11 +58,8 @@ function App() {
     });
   };
 
-  // const handleDelete = id => () => {
-  //   setSubs(preSubs => preSubs.filter(sub => sub.id !== id));
-  // };
-
   const handleDelete = id => async () => {
+    console.log(id);
     try {
       await deleteSubs(id);
       setSubs(preSubs => preSubs.filter(sub => sub.id !== id));
@@ -120,35 +69,29 @@ function App() {
   };
 
   const updateIsEdit = ({ id, isEdit }) => {
+    // console.log('id', id);
     setSubs(prevSubs =>
       prevSubs.map(sub => {
+        // console.log('subId', sub.id);
         if (sub.id !== id) {
+          // console.log(id, sub.id);
           return sub;
         }
+        console.log(id, sub.id);
         return { ...sub, isEdit };
       })
     );
+    console.log(subs);
   };
-
-  // const handleSave = ({ id, tempSub }) => {
-  //   setSubs(prevSubs =>
-  //     prevSubs.map(sub => {
-  //       if (sub.id !== id) {
-  //         return sub;
-  //       }
-  //       return { ...sub, ...tempSub, isEdit: false };
-  //     })
-  //   );
-  // };
 
   const handleSave = async payload => {
     const { id, tempSub } = payload;
 
     await updateSubs({
-      id,
-      isDone: false,
-      ...tempSub,
-      isEdit: false,
+      id: id,
+      name: tempSub.name,
+      plan: tempSub.plan,
+      price: tempSub.price,
     });
 
     setSubs(prevSubs =>
@@ -156,29 +99,24 @@ function App() {
         if (sub.id !== id) {
           return sub;
         }
-        return { ...sub, ...tempSub, isEdit: false };
+
+        return {
+          ...sub,
+          fields: tempSub,
+          isEdit: false,
+        };
       })
     );
   };
-
-  // const handleSave = ({ id, tempSub }) => {
-  //   setSubs(prevSubs =>
-  //     prevSubs.map(sub => {
-  //       if (sub.id !== id) {
-  //         return sub;
-  //       }
-  //       return { ...sub, ...tempSub, isEdit: false };
-  //     })
-  //   );
-  // };
 
   const numOfRemaing = subs?.length;
 
   function SumDataforEach(arr) {
     let sum = 0;
-    arr.forEach(function (element) {
-      if (element.price && !isNaN(element.price)) {
-        sum += Number(element.price);
+    arr?.forEach(function (element) {
+      const price = element.fields.price;
+      if (price && !isNaN(price)) {
+        sum += Number(price);
       }
     });
     return sum;

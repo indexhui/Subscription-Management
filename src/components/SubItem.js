@@ -2,7 +2,14 @@ import { Box, Flex, Checkbox, Icon, Input } from '@chakra-ui/react';
 import { useState } from 'react';
 import { FiTrash2, FiEdit3 } from 'react-icons/fi';
 
-const SubItem = ({ sub, handleDelete, updateIsEdit, handleSave }) => {
+const SubItem = ({
+  sub,
+  id,
+  isEdit,
+  handleDelete,
+  updateIsEdit,
+  handleSave,
+}) => {
   const [tempSub, setTempSub] = useState(sub);
   const handleChange = e => {
     let key = e.target.name;
@@ -22,7 +29,7 @@ const SubItem = ({ sub, handleDelete, updateIsEdit, handleSave }) => {
     // keyCode 13 一定是 enter，但 enter 的 keyCode 不一定是 13
     if (event.keyCode === 13 && tempSub.length !== 0) {
       handleSave({
-        id: sub.id,
+        id: id,
         tempSub,
       });
     }
@@ -54,7 +61,7 @@ const SubItem = ({ sub, handleDelete, updateIsEdit, handleSave }) => {
       position="relative"
     >
       <Flex align="center">
-        <Checkbox isChecked={sub.isPaid} colorScheme="cyan">
+        <Checkbox colorScheme="cyan">
           <Box
             bg="gray.900"
             color="white"
@@ -69,9 +76,9 @@ const SubItem = ({ sub, handleDelete, updateIsEdit, handleSave }) => {
           </Box>
         </Checkbox>
         <Box>
-          <Box onDoubleClick={() => updateIsEdit({ id: sub.id, isEdit: true })}>
-            {!sub.isEdit && sub.name}
-            {sub.isEdit && (
+          <Box onDoubleClick={() => updateIsEdit({ id: id, isEdit: true })}>
+            {!isEdit && sub.name}
+            {isEdit && (
               <Input
                 name="name"
                 value={tempSub.name}
@@ -85,9 +92,9 @@ const SubItem = ({ sub, handleDelete, updateIsEdit, handleSave }) => {
               />
             )}
           </Box>
-          <Box onDoubleClick={() => updateIsEdit({ id: sub.id, isEdit: true })}>
-            {!sub.isEdit && sub.plan}
-            {sub.isEdit && (
+          <Box onDoubleClick={() => updateIsEdit({ id: id, isEdit: true })}>
+            {!isEdit && sub.plan}
+            {isEdit && (
               <Input
                 value={tempSub.plan}
                 name="plan"
@@ -105,8 +112,8 @@ const SubItem = ({ sub, handleDelete, updateIsEdit, handleSave }) => {
       </Flex>
       <Box>
         <Box>
-          {!sub.isEdit && sub.price}
-          {sub.isEdit && (
+          {!isEdit && sub.price}
+          {isEdit && (
             <Input
               value={tempSub.price}
               name="price"
@@ -142,13 +149,13 @@ const SubItem = ({ sub, handleDelete, updateIsEdit, handleSave }) => {
           <Icon
             as={FiTrash2}
             _hover={{ color: 'gray.800' }}
-            onClick={handleDelete(sub.id)}
+            onClick={handleDelete(id)}
           />
         </Box>
         <Box
           py="2px"
           mb="5px"
-          onClick={() => updateIsEdit({ id: sub.id, isEdit: true })}
+          onClick={() => updateIsEdit({ id: id, isEdit: true })}
         >
           <Icon as={FiEdit3} _hover={{ color: 'gray.800' }} py="1px" />
         </Box>

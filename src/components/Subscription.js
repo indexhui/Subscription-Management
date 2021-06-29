@@ -1,7 +1,5 @@
 import { Box } from '@chakra-ui/react';
 
-// import { FiTrash2, FiEdit3 } from 'react-icons/fi';
-
 import SubItem from '../components/SubItem';
 
 const Subscription = ({ subs, handleDelete, updateIsEdit, handleSave }) => {
@@ -10,7 +8,9 @@ const Subscription = ({ subs, handleDelete, updateIsEdit, handleSave }) => {
       {subs &&
         subs.map(sub => (
           <SubItem
-            sub={sub}
+            sub={sub.fields}
+            isEdit={sub.isEdit}
+            id={sub.id}
             key={sub.id}
             handleDelete={handleDelete}
             updateIsEdit={updateIsEdit}
