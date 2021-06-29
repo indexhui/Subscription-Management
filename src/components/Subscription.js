@@ -1,10 +1,18 @@
 import { Box } from '@chakra-ui/react';
 
 import SubItem from '../components/SubItem';
+import SkeletonSubItem from '../components/SkeletonSubItem';
 
 const Subscription = ({ subs, handleDelete, updateIsEdit, handleSave }) => {
   return (
     <Box>
+      {!subs && (
+        <Box>
+          <SkeletonSubItem />
+          <SkeletonSubItem />
+          <SkeletonSubItem />
+        </Box>
+      )}
       {subs &&
         subs.map(sub => (
           <SubItem

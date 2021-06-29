@@ -15,6 +15,7 @@ import {
 
 function App() {
   const [subs, setSubs] = useState();
+  const [isLoading, setLoading] = useState(true);
   const [inputValue, setInputValue] = useState({
     name: '',
     plan: '',
@@ -25,6 +26,7 @@ function App() {
     const fetchSubs = async () => {
       const data = await getSubs();
       setSubs(data.records);
+      setLoading(false);
     };
     fetchSubs();
   }, []);
@@ -40,13 +42,13 @@ function App() {
 
   const handleSubmit = async e => {
     e.preventDefault();
-
+    setLoading(true);
     const data = await createSubs({
       name: inputValue.name,
       plan: inputValue.plan,
       price: inputValue.price,
     });
-
+    setLoading(false);
     setSubs(preSubs => {
       return [...preSubs, data];
     });
@@ -139,6 +141,7 @@ function App() {
             pl="24px"
           >
             <Header
+              isLoading={isLoading}
               sum={subs && SumDataforEach(subs)}
               numOfRemaing={numOfRemaing}
             />
@@ -151,6 +154,7 @@ function App() {
           </Flex>
 
           <AddSubscription
+            isLoading={isLoading}
             inputValue={inputValue}
             handleSubmit={handleSubmit}
             handleChange={handleChange}

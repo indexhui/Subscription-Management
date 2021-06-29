@@ -61,20 +61,20 @@ const SubItem = ({
       position="relative"
     >
       <Flex align="center">
-        <Checkbox colorScheme="cyan">
-          <Box
-            bg="gray.900"
-            color="white"
-            w="40px"
-            h="40px"
-            lineHeight="40px"
-            textAlign="center"
-            borderRadius="2px"
-            mr="2"
-          >
-            {sub.name && sub.name.slice(0, 1).toUpperCase()}
-          </Box>
-        </Checkbox>
+        {/* <Checkbox colorScheme="cyan"> */}
+        <Box
+          bg="gray.900"
+          color="white"
+          w="40px"
+          h="40px"
+          lineHeight="40px"
+          textAlign="center"
+          borderRadius="2px"
+          mr="2"
+        >
+          {sub.name && sub.name.slice(0, 1).toUpperCase()}
+        </Box>
+        {/* </Checkbox> */}
         <Box>
           <Box onDoubleClick={() => updateIsEdit({ id: id, isEdit: true })}>
             {!isEdit && sub.name}

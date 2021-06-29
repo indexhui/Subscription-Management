@@ -1,14 +1,22 @@
-import { Box } from '@chakra-ui/react';
+import { Box, Spinner } from '@chakra-ui/react';
 
 const Header = props => {
-  const { numOfRemaing, sum } = props;
+  const { isLoading, numOfRemaing, sum } = props;
 
   return (
     <Box>
-      <Box>總共有 {numOfRemaing} 筆訂閱服務</Box>
-      <Box>每個月您需花費 {sum}</Box>
-      {/* <Box>您已付出</Box>
-      <Box>本月尚須付</Box> */}
+      {isLoading && (
+        <Box>
+          <Spinner />
+          讀取資料中
+        </Box>
+      )}
+      {!isLoading && (
+        <Box>
+          <Box>總共有 {numOfRemaing} 筆訂閱服務</Box>
+          <Box>每個月您需花費 {sum}</Box>
+        </Box>
+      )}
     </Box>
   );
 };

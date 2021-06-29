@@ -1,6 +1,19 @@
-import { Flex, Button, FormControl, FormLabel, Input } from '@chakra-ui/react';
+import {
+  Spinner,
+  Flex,
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+} from '@chakra-ui/react';
 
-const AddSubscription = ({ inputValue, handleSubmit, handleChange }) => {
+const AddSubscription = ({
+  isLoading,
+  inputValue,
+  handleSubmit,
+  handleChange,
+}) => {
   return (
     <Flex
       w="45%"
@@ -40,13 +53,14 @@ const AddSubscription = ({ inputValue, handleSubmit, handleChange }) => {
             value={inputValue.price}
           />
         </FormControl>
-        <Button
-          mt={4}
-          colorScheme="teal"
-          // isLoading={props.isSubmitting}
-          type="submit"
-        >
-          Submit
+        <Button mt={4} colorScheme="teal" w="100%" type="submit">
+          {isLoading && (
+            <Box>
+              <Spinner size="xs" mr="5px" />
+              loading...
+            </Box>
+          )}
+          {!isLoading && 'Submit'}
         </Button>
       </form>
     </Flex>
